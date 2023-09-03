@@ -35,7 +35,7 @@ app.get("/fruits/:id", (req, res) => {
         
 
     }
-    res.status(404).send("fruit not foun");
+    res.status(404).send("fruit not found");
 }); 
 
 // Post Route to add new fruits -----
@@ -55,10 +55,24 @@ app.post("/fruits", (req, res) => {
 //    res.send("PUT request at /cart");
 //});
 
-// DELETE Route ----
-app.delete("/fruits/:id", (req, res) => {
-    res.send("this item has been deleted");
-});
+// DELETE Route  ----
+//app.delete("/fruits/:id", (req, res) => {
+//    res.send("this item has been deleted");
+//});
+
+//DELETE Route  ======
+exports.deleteFruit = (req, res) => {
+    for(let i = 0; i < fruit.legnth; i++) {
+        if(fruits[i].id == req.params.id) {
+            fruits.splice(i, 1);
+            return res.status(200).send("fruit deleted")
+        }
+    }
+
+    res.status(404).send("fruit not found")
+}
+
+
 // -=-=-=-=-=-=- PORT LISTEN -=-=-=-=-=-
 app.listen(port, () => {
     console.log(`app listing on port ${port}`);
